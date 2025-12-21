@@ -48,28 +48,38 @@ talentscout-chatbot/
 
 ### 1. Clone the repository
 
+```
 git clone <your-repo-url>
 cd talentscout-chatbot
+```
 
 ### 2. Create virtual environment
 
+```
 python -m venv venv
 source venv/bin/activate   # Mac/Linux
 venv\Scripts\activate      # Windows
+```
 
 ### 3. Install dependencies
 
+```
 pip install -r requirements.txt
+```
 
 ### 4. Set environment variables
 
+```
 Create a .env file:
 
 OPENAI_API_KEY=your_api_key_here
+```
 
 ### 5. Run the application
 
+```
 streamlit run app.py
+```
 
 ---
 
