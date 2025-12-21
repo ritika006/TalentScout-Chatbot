@@ -47,98 +47,106 @@ talentscout-chatbot/
 ## Installation & Setup
 
 ### 1. Clone the repository
-```bash
+
 git clone <your-repo-url>
 cd talentscout-chatbot
 
-2. Create virtual environment
+### 2. Create virtual environment
 
 python -m venv venv
 source venv/bin/activate   # Mac/Linux
 venv\Scripts\activate      # Windows
 
-3. Install dependencies
+### 3. Install dependencies
 
 pip install -r requirements.txt
 
-4. Set environment variables
+### 4. Set environment variables
 
 Create a .env file:
 
 OPENAI_API_KEY=your_api_key_here
 
-5. Run the application
+### 5. Run the application
 
 streamlit run app.py
 
+---
 
-How It Works (Conversation Flow)
+## How It Works (Conversation Flow)
 
-Greets the candidate and explains the purpose
+1. Greets the candidate and explains the purpose
 
-Collects candidate details sequentially:
+2. Collects candidate details sequentially:
+    - Full Name
+    - Email
+    - Phone Number
+    - Years of Experience
+    - Desired Position
+    - Location
+    - Tech Stack
 
-Full Name
+3. Normalizes noisy tech stack input (e.g., jango → Django)
 
-Email
+4. Generates 3–5 technical questions per technology
 
-Phone Number
+5. Gracefully ends the conversation and disables further input
 
-Years of Experience
+---
 
-Desired Position
+## Prompt Design
 
-Location
+- Separate prompts for information gathering and question generation
 
-Tech Stack
+- Experience-aware prompts to ensure appropriate difficulty
 
-Normalizes noisy tech stack input (e.g., jango → Django)
+- Clear instructions to avoid off-topic responses
 
-Generates 3–5 technical questions per technology
+- Deterministic fallback when LLM is unavailable
 
-Gracefully ends the conversation and disables further input
+---
 
-Prompt Design
+## Fallback & Error Handling
 
-Separate prompts for information gathering and question generation
+- If LLM quota is exceeded, the system switches to rule-based question generation
 
-Experience-aware prompts to ensure appropriate difficulty
+- Prevents duplicate question generation using session-state flags
 
-Clear instructions to avoid off-topic responses
+- Handles unexpected inputs without deviating from the chatbot’s purpose
 
-Deterministic fallback when LLM is unavailable
+---
 
-Fallback & Error Handling
+## Data Privacy & Compliance
 
-If LLM quota is exceeded, the system switches to rule-based question generation
+- No database or file-based storage
 
-Prevents duplicate question generation using session-state flags
+- Candidate data exists only in Streamlit session memory
 
-Handles unexpected inputs without deviating from the chatbot’s purpose
+- No logging of personal or sensitive information
 
-Data Privacy & Compliance
+- GDPR-friendly simulated data handling
 
-No database or file-based storage
+---
 
-Candidate data exists only in Streamlit session memory
+## Challenges & Solutions
+```
+| Challenge             | Solution                        |
+| --------------------- | ------------------------------- |
+| LLM quota limitations | Added rule-based fallback logic |
+| Repeated responses    | Used session-state flags        |
+| Noisy tech input      | Implemented normalization layer |
+| Conversation overflow | Disabled input after completion |
+```
 
-No logging of personal or sensitive information
+---
+## Future Enhancements
 
-GDPR-friendly simulated data handling
+- Sentiment analysis during conversations
 
-Challenges & Solutions
-Challenge	Solution
-LLM quota limitations	Added rule-based fallback logic
-Repeated responses	Used session-state flags
-Noisy tech input	Implemented normalization layer
-Conversation overflow	Disabled input after completion
-Future Enhancements
+- Multilingual support
 
-Sentiment analysis during conversations
+- Recruiter dashboard for reviewing candidates
 
-Multilingual support
+- Cloud deployment (AWS / GCP)
 
-Recruiter dashboard for reviewing candidates
-
-Cloud deployment (AWS / GCP)
-
+---
