@@ -106,7 +106,7 @@ streamlit run app.py
 
 ## Hosted On
 
-[text](https://tschatbot.streamlit.app/)
+[tschatbot.streamlit.app/](https://tschatbot.streamlit.app/)
 
 ---
 
